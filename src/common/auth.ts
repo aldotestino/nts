@@ -6,6 +6,7 @@ import { prisma } from './prisma';
 import { loginSchema } from './validation/auth';
 
 export const nextAuthOptions: NextAuthOptions = {
+  secret: process.env.JWT_SECRET,
   providers: [
     Credentials({
       name: 'credentials',
