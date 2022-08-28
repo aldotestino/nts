@@ -2,7 +2,7 @@ import { Note } from '@prisma/client';
 
 interface NoteCardProps {
   note: Note
-  onDelete: (id: number) => void
+  onDelete: (id: string) => void
 }
 
 function NoteCard({ note, onDelete }: NoteCardProps) {

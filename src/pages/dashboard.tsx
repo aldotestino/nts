@@ -31,7 +31,7 @@ const Dashboard: NextPage = (props: DashboardProps) => {
     }
   }, [createNote]);
 
-  const onDelete = useCallback(async (noteId: number) => {
+  const onDelete = useCallback(async (noteId: string) => {
     try {
       const res = await deleteNote({ noteId });
       setNotes(pn => pn.filter(n => n.id !== res.result));
@@ -74,7 +74,7 @@ export const getServerSideProps = requireAuth(async (ctx) => {
   
   const session = await getSession(ctx);
 
-  const userId = session!.id as number;
+  const userId = session!.id as string;
 
   const notes = await prisma.note.findMany({
     where: {
