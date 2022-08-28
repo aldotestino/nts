@@ -7,7 +7,7 @@ import { Context } from '../context';
 export const noteRouter = trpc.router<Context>()
   .mutation('delete', {
     input: z.object({
-      noteId: z.number().int()
+      noteId: z.string()
     }),
     resolve: async ({ input, ctx }) => {
       if (!ctx.session?.user) {
@@ -17,7 +17,7 @@ export const noteRouter = trpc.router<Context>()
         });
       }
 
-      const userId = ctx.session.id as number;
+      const userId = ctx.session.id as string;
 
       const noteToDelete = await ctx.prisma.note.findUnique({
         where: {
@@ -55,7 +55,7 @@ export const noteRouter = trpc.router<Context>()
         });
       }
 
-      const userId = ctx.session.id as number;
+      const userId = ctx.session.id as string;
 
       const newNote = await ctx.prisma.note.create({
         data: {
