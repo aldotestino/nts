@@ -4,6 +4,7 @@ import { verify } from 'argon2';
 
 import { prisma } from './prisma';
 import { loginSchema } from './validation/auth';
+import { User } from '@prisma/client';
 
 export const nextAuthOptions: NextAuthOptions = {
   secret: process.env.JWT_SECRET,
@@ -59,9 +60,9 @@ export const nextAuthOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      if (token) {
-        session.id = token.id;
-        session.username = token.username;
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        session.user.username = token.username as string;
       }
 
       return session;

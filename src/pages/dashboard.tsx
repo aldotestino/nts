@@ -10,7 +10,7 @@ import { useCallback, useState } from 'react';
 import { CreateNoteVariables } from '../common/validation/note';
 import { trpc } from '../common/client/trpc';
 import NoteCard from '../components/NoteCard';
-import { Note } from '@prisma/client';
+import { Note, User } from '@prisma/client';
 
 type DashboardProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -48,7 +48,7 @@ const Dashboard: NextPage = (props: DashboardProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-screen bg-base-200 flex flex-col items-center">
-        <Navbar username={(data?.username as string)} signOut={signOut} />
+        <Navbar username={data?.user?.username} signOut={signOut} />
         <div className={'px-4 pb-10 lg:items-start items-center pt-10 gap-10 lg:gap-4 lg:pt-20 flex flex-col-reverse lg:flex-row w-full max-w-7xl'}>
           {notes && 
             (notes.length === 0  ?

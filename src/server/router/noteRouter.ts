@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import * as trpc from '@trpc/server';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
@@ -17,7 +18,7 @@ export const noteRouter = trpc.router<Context>()
         });
       }
 
-      const userId = ctx.session.id as string;
+      const userId = ctx.session.user.id;
 
       const noteToDelete = await ctx.prisma.note.findUnique({
         where: {
@@ -55,7 +56,7 @@ export const noteRouter = trpc.router<Context>()
         });
       }
 
-      const userId = ctx.session.id as string;
+      const userId = ctx.session.user.id;
 
       const newNote = await ctx.prisma.note.create({
         data: {

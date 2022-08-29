@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useSession, signOut } from 'next-auth/react';
 import Head from 'next/head';
@@ -6,7 +7,7 @@ import Navbar from '../components/Navbar';
 
 const Home: NextPage = () => {
 
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   return (
     <>
@@ -16,8 +17,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='min-h-screen bg-base-200 w-screen flex flex-col items-center'>
-        <Navbar username={(data?.username as string)} signOut={signOut} />
-        <Hero isAuth={Boolean(data?.user)} />
+        <Navbar username={data?.user?.username} signOut={signOut} />
+        <Hero isAuth={status === 'authenticated'} />
       </div>
     </>
   );
