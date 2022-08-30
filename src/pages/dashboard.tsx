@@ -73,8 +73,8 @@ const Dashboard: NextPage = (props: DashboardProps) => {
 export const getServerSideProps = requireAuth(async (ctx) => {
   
   const session = await getSession(ctx);
-
-  const userId = session!.id as string;
+  
+  const userId = session?.user?.id;
 
   const notes = await prisma.note.findMany({
     where: {
