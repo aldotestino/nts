@@ -10,7 +10,7 @@ import { useCallback, useState } from 'react';
 import { CreateNoteVariables } from '../common/validation/note';
 import { trpc } from '../common/client/trpc';
 import NoteCard from '../components/NoteCard';
-import { Note, User } from '@prisma/client';
+import { Note } from '@prisma/client';
 
 type DashboardProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 

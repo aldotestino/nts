@@ -27,11 +27,18 @@ export const userRouter = trpc.router<Context>()
           result: newUser.email
         };
 
-      } catch (e) {
-        throw new trpc.TRPCError({
-          code: 'CONFLICT',
-          message: 'User already exists.'
-        });
+      } catch (e: any) {
+        if (e.code === 'P2002') {
+          throw new trpc.TRPCError({
+            code: 'CONFLICT',
+            message: 'User already exists.'
+          });
+        } else {
+          throw new trpc.TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: e.message
+          });
+        }
       }
     }
   });
